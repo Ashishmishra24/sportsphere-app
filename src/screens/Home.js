@@ -8,7 +8,8 @@ import {
   FaComments,
   FaEllipsisH,
   FaHeart,
-  FaShare
+  FaShare,
+  FaChevronRight
 } from 'react-icons/fa';
 import { GiTennisRacket, GiCricketBat } from 'react-icons/gi';
 import toast from 'react-hot-toast';
@@ -16,16 +17,15 @@ import toast from 'react-hot-toast';
 const Home = () => {
   const [selectedSport, setSelectedSport] = useState('all');
 
-  // Sport selection data
+  // Sport selection data - matching the ScoreD design
   const sports = [
-    { id: 'all', name: 'All', icon: FaTrophy, color: 'text-blue-600' },
     { id: 'cricket', name: 'Cricket', icon: GiCricketBat, color: 'text-red-600' },
     { id: 'football', name: 'Football', icon: FaFutbol, color: 'text-green-600' },
     { id: 'badminton', name: 'Badminton', icon: FaTableTennis, color: 'text-purple-600' },
     { id: 'tennis', name: 'Tennis', icon: GiTennisRacket, color: 'text-yellow-600' },
   ];
 
-  // Live scores data
+  // Live scores data - matching the ScoreD design
   const liveScores = [
     {
       id: 1,
@@ -62,14 +62,17 @@ const Home = () => {
     }
   ];
 
-  // Social feed data
+  // Social feed data - matching the ScoreD design
   const socialFeed = [
     {
       id: 1,
       user: 'Alex',
       action: 'played a match',
       time: '2h ago',
-      image: 'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=400&h=300&fit=crop',
+      images: [
+        'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=400&h=300&fit=crop',
+        'https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=400&h=300&fit=crop'
+      ],
       likes: 24,
       comments: 8
     },
@@ -78,7 +81,7 @@ const Home = () => {
       user: 'Ellen',
       action: 'shared photo',
       time: '5h ago',
-      image: 'https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=400&h=300&fit=crop',
+      images: [],
       likes: 18,
       comments: 5
     }
@@ -104,14 +107,14 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 pb-20">
-      {/* Header */}
-      <div className="bg-white px-6 py-4 border-b border-gray-200">
+      {/* Header - ScoreD Design */}
+      <div className="bg-white px-4 md:px-6 py-4 border-b border-gray-200">
         <div className="flex items-center justify-between">
           <div className="flex items-center">
             <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center mr-3">
               <span className="text-white font-bold text-lg">S</span>
             </div>
-            <h1 className="text-xl font-bold text-gray-900">SportSphere</h1>
+            <h1 className="text-xl font-bold text-gray-900">ScoreD</h1>
           </div>
           <div className="flex items-center space-x-3">
             <button className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
@@ -124,8 +127,8 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Sport Selection */}
-      <div className="bg-white px-6 py-4 border-b border-gray-200">
+      {/* Sport Categories - ScoreD Design */}
+      <div className="bg-white px-4 md:px-6 py-4 border-b border-gray-200">
         <div className="flex space-x-4 overflow-x-auto">
           {sports.map((sport) => {
             const Icon = sport.icon;
@@ -152,15 +155,15 @@ const Home = () => {
           })}
           <button className="flex flex-col items-center space-y-2 min-w-0 flex-shrink-0 text-gray-500">
             <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center">
-              <FaPlus className="text-gray-400 text-lg" />
+              <FaChevronRight className="text-gray-400 text-lg" />
             </div>
             <span className="text-xs font-medium">More</span>
           </button>
         </div>
       </div>
 
-      {/* Live Scores Section */}
-      <div className="px-6 py-4">
+      {/* Live Scores Section - ScoreD Design */}
+      <div className="px-4 md:px-6 py-4">
         <div className="space-y-3">
           {liveScores.map((match) => {
             const SportIcon = getSportIcon(match.sport);
@@ -177,8 +180,8 @@ const Home = () => {
                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(match.status)}`}>
                       {match.time}
                     </span>
-                    <button className="text-blue-600 text-sm font-medium">
-                      View match &gt;
+                    <button className="text-blue-600 text-sm font-medium flex items-center">
+                      View match <FaChevronRight className="ml-1 text-xs" />
                     </button>
                   </div>
                 </div>
@@ -202,8 +205,8 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Your Feed Section */}
-      <div className="px-6 py-4">
+      {/* Your Feed Section - ScoreD Design */}
+      <div className="px-4 md:px-6 py-4">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-semibold text-gray-900">Your Feed</h2>
           <button className="text-gray-500">
@@ -229,20 +232,46 @@ const Home = () => {
                 </div>
               </div>
               
-              <div className="mb-3">
-                <img 
-                  src={post.image} 
-                  alt="Post" 
-                  className="w-full h-48 object-cover rounded-lg"
-                  onError={(e) => {
-                    e.target.style.display = 'none';
-                    e.target.nextSibling.style.display = 'block';
-                  }}
-                />
-                <div className="w-full h-48 bg-gray-200 rounded-lg flex items-center justify-center hidden">
-                  <span className="text-gray-500">Image not available</span>
+              {/* Images Grid - ScoreD Design */}
+              {post.images.length > 0 && (
+                <div className="mb-3">
+                  {post.images.length === 1 ? (
+                    <img 
+                      src={post.images[0]} 
+                      alt="Post" 
+                      className="w-full h-48 object-cover rounded-lg"
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                        e.target.nextSibling.style.display = 'block';
+                      }}
+                    />
+                  ) : (
+                    <div className="grid grid-cols-2 gap-2">
+                      <img 
+                        src={post.images[0]} 
+                        alt="Post" 
+                        className="w-full h-32 object-cover rounded-lg"
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                          e.target.nextSibling.style.display = 'block';
+                        }}
+                      />
+                      <img 
+                        src={post.images[1]} 
+                        alt="Post" 
+                        className="w-full h-32 object-cover rounded-lg"
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                          e.target.nextSibling.style.display = 'block';
+                        }}
+                      />
+                    </div>
+                  )}
+                  <div className="w-full h-48 bg-gray-200 rounded-lg flex items-center justify-center hidden">
+                    <span className="text-gray-500">Image not available</span>
+                  </div>
                 </div>
-              </div>
+              )}
               
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-4">

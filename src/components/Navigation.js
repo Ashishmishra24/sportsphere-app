@@ -10,7 +10,8 @@ import {
   FaComments, 
   FaMapMarkerAlt, 
   FaCog,
-  FaFutbol
+  FaPlus,
+  FaSearch
 } from 'react-icons/fa';
 
 const Navigation = () => {
@@ -19,10 +20,10 @@ const Navigation = () => {
 
   const navItems = [
     { path: '/home', icon: FaHome, label: 'Home' },
-    { path: '/live-scores', icon: FaFutbol, label: 'Scores' },
+    { path: '/live-scores', icon: FaTrophy, label: 'Scores' },
+    { path: '/create-match', icon: FaPlus, label: 'Create' },
+    { path: '/search', icon: FaSearch, label: 'Search' },
     { path: '/community', icon: FaUsers, label: 'Community' },
-    { path: '/create-match', icon: FaTrophy, label: 'Create' },
-    { path: '/profile', icon: FaUser, label: 'Profile' },
   ];
 
   const handleSignOut = async () => {
@@ -73,6 +74,10 @@ const Navigation = () => {
             <Link to="/chat" className="flex items-center p-3 hover:bg-gray-50 transition-colors">
               <FaComments className="mr-2" />
               Messages
+            </Link>
+            <Link to="/profile" className="flex items-center p-3 hover:bg-gray-50 transition-colors">
+              <FaUser className="mr-2" />
+              Profile
             </Link>
             <Link to="/settings" className="flex items-center p-3 hover:bg-gray-50 transition-colors">
               <FaCog className="mr-2" />

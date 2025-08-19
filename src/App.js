@@ -30,6 +30,7 @@ import VenueDirectory from './screens/VenueDirectory';
 import VenueBooking from './screens/VenueBooking';
 import Settings from './screens/Settings';
 import SupportAndHelp from './screens/SupportAndHelp';
+import Search from './screens/Search';
 
 // Layout Components
 import Navigation from './components/Navigation';
@@ -129,6 +130,7 @@ function App() {
             <Route path="/venue/:id/booking" element={<ProtectedRoute user={user}><VenueBooking /></ProtectedRoute>} />
             <Route path="/settings" element={<ProtectedRoute user={user}><Settings /></ProtectedRoute>} />
             <Route path="/support" element={<ProtectedRoute user={user}><SupportAndHelp /></ProtectedRoute>} />
+            <Route path="/search" element={<ProtectedRoute user={user}><Search /></ProtectedRoute>} />
 
             {/* Catch all route */}
             <Route path="*" element={<Navigate to={user ? "/home" : "/"} />} />
