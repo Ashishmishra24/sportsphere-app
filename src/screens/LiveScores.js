@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { FaArrowLeft, FaFutbol, FaBasketballBall, FaTableTennis, FaVolleyballBall, FaHockeyPuck, FaTrophy, FaClock, FaMapMarkerAlt, FaStar } from 'react-icons/fa';
 import { GiTennisRacket, GiCricketBat } from 'react-icons/gi';
 import toast from 'react-hot-toast';
-import { liveScoreService } from '../services/liveScoreService';
 
 const LiveScores = () => {
   const [selectedSport, setSelectedSport] = useState('football');
@@ -13,7 +12,7 @@ const LiveScores = () => {
   const [refreshing, setRefreshing] = useState(false);
 
   // Mock API data - replace with actual API integration
-  const mockScores = {
+  const mockScores = useMemo(() => ({
     football: [
       {
         id: 1,
@@ -160,7 +159,7 @@ const LiveScores = () => {
          highlights: ['🏑 Van der Weerden 2 goals', '🏑 Fuchs 1 goal']
        }
      ]
-  };
+  }), []);
 
   const sports = [
     { id: 'football', name: 'Football', icon: FaFutbol, color: 'text-green-600' },
@@ -183,7 +182,7 @@ const LiveScores = () => {
   };
 
   // Fetch scores using local mock data for now
-  const fetchScores = async (sport, league) => {
+  const fetchScores = useCallback(async (sport, league) => {
     setLoading(true);
     try {
       // Simulate API delay
@@ -202,7 +201,7 @@ const LiveScores = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [mockScores]);
 
   const refreshScores = async () => {
     setRefreshing(true);
@@ -213,7 +212,7 @@ const LiveScores = () => {
 
   useEffect(() => {
     fetchScores(selectedSport, selectedLeague);
-  }, [selectedSport, selectedLeague]);
+  }, [selectedSport, selectedLeague, fetchScores]);
 
   // Auto-refresh every 30 seconds
   useEffect(() => {
@@ -224,7 +223,7 @@ const LiveScores = () => {
     }, 30000);
 
     return () => clearInterval(interval);
-  }, [selectedSport, selectedLeague, loading]);
+  }, [selectedSport, selectedLeague, loading, fetchScores]);
 
   const getStatusColor = (status) => {
     switch (status) {

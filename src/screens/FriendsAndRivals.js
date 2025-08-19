@@ -80,12 +80,13 @@ const FriendsAndRivals = () => {
     });
   }, []);
 
-  const handleRemoveConnection = (type, id) => {
-    setConnections(prev => ({
-      ...prev,
-      [type]: prev[type].filter(connection => connection.id !== id)
-    }));
-  };
+  // TODO: Implement connection removal functionality
+  // const handleRemoveConnection = (type, id) => {
+  //   setConnections(prev => ({
+  //     ...prev,
+  //     [type]: prev[type].filter(connection => connection.id !== id)
+  //   }));
+  // };
 
   const filteredConnections = connections[activeTab].filter(connection =>
     connection.name.toLowerCase().includes(searchQuery.toLowerCase()) ||

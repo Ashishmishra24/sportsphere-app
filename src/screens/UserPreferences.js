@@ -6,8 +6,6 @@ import {
   FaTableTennis,
   FaVolleyballBall,
   FaHockeyPuck,
-  FaTrophy,
-  FaStar,
   FaCheck
 } from 'react-icons/fa';
 import { GiTennisRacket, GiCricketBat } from 'react-icons/gi';
@@ -248,3 +246,4 @@ const UserPreferences = () => {
 };
 
 export default UserPreferences;
+

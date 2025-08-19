@@ -7,7 +7,6 @@ import {
   FaUser, 
   FaUsers, 
   FaTrophy, 
-  FaVideo, 
   FaComments, 
   FaMapMarkerAlt, 
   FaCog,

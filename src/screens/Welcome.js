@@ -5,12 +5,9 @@ import {
   FaBasketballBall, 
   FaTableTennis, 
   FaVolleyballBall, 
-  FaHockeyPuck, 
   FaTrophy, 
   FaPlay,
-  FaUsers,
-  FaStar,
-  FaArrowRight
+  FaUsers
 } from 'react-icons/fa';
 import { GiTennisRacket, GiCricketBat } from 'react-icons/gi';
 

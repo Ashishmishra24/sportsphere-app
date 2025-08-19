@@ -1,17 +1,9 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { 
   FaFutbol, 
-  FaBasketballBall, 
   FaTableTennis, 
-  FaVolleyballBall, 
-  FaHockeyPuck, 
   FaTrophy, 
-  FaClock, 
-  FaMapMarkerAlt, 
-  FaStar,
   FaPlus,
-  FaSearch,
   FaUsers,
   FaComments,
   FaEllipsisH,
