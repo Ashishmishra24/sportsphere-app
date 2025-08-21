@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { mockAuth } from '../utils/mockAuth';
 import { handleError, showSuccess } from '../utils/errorHandler';
@@ -10,20 +10,19 @@ import {
   FaComments, 
   FaMapMarkerAlt, 
   FaCog,
-  FaPlus,
-  FaSearch
+  FaPlus
 } from 'react-icons/fa';
+import CreateJoinModal from './CreateJoinModal';
 
 const Navigation = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const [showCreateJoinModal, setShowCreateJoinModal] = useState(false);
 
   const navItems = [
     { path: '/home', icon: FaHome, label: 'Home' },
-    { path: '/live-scores', icon: FaTrophy, label: 'Scores' },
-    { path: '/create-match', icon: FaPlus, label: 'Create' },
-    { path: '/search', icon: FaSearch, label: 'Search' },
-    { path: '/community', icon: FaUsers, label: 'Community' },
+    { path: '/matches', icon: FaTrophy, label: 'Matches' },
+    { path: '/profile/alexjohnson', icon: FaUser, label: 'Profile' },
   ];
 
   const handleSignOut = async () => {
@@ -58,6 +57,17 @@ const Navigation = () => {
             </Link>
           );
         })}
+        
+        {/* Floating Action Button - Create/Join */}
+        <button
+          onClick={() => setShowCreateJoinModal(true)}
+          className="flex flex-col items-center p-2 rounded-lg transition-all duration-200 text-blue-600 hover:text-blue-700 hover:bg-blue-50"
+        >
+          <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-110">
+            <FaPlus className="text-white text-lg" />
+          </div>
+          <span className="text-xs font-medium mt-1">Create/Join</span>
+        </button>
       </div>
       
       {/* Quick Actions Menu */}
@@ -92,6 +102,12 @@ const Navigation = () => {
           </div>
         </div>
       </div>
+      
+      {/* Create/Join Modal */}
+      <CreateJoinModal 
+        isOpen={showCreateJoinModal} 
+        onClose={() => setShowCreateJoinModal(false)} 
+      />
     </nav>
   );
 };

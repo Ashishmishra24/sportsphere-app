@@ -1,216 +1,174 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { 
-  FaSearch, 
-  FaArrowLeft, 
-  FaFilter,
-  FaFutbol,
-  FaTrophy,
-  FaUsers,
-  FaMapMarkerAlt,
-  FaCalendar
-} from 'react-icons/fa';
-import { GiTennisRacket, GiCricketBat } from 'react-icons/gi';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { FaArrowLeft, FaSearch, FaTrophy, FaUsers, FaMapMarkerAlt } from 'react-icons/fa';
+import { handleError } from '../utils/errorHandler';
 
 const Search = () => {
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState('all');
 
-  const sports = [
-    { id: 'cricket', name: 'Cricket', icon: GiCricketBat, color: 'text-red-600' },
-    { id: 'football', name: 'Football', icon: FaFutbol, color: 'text-green-600' },
-    { id: 'tennis', name: 'Tennis', icon: GiTennisRacket, color: 'text-yellow-600' },
-  ];
-
-  const searchResults = [
-    {
-      id: 1,
-      type: 'match',
-      title: 'Tigers vs Lions',
-      sport: 'cricket',
-      status: 'live',
-      time: 'LIVE',
-      venue: 'Central Stadium'
-    },
-    {
-      id: 2,
-      type: 'player',
-      name: 'Alex Johnson',
-      sport: 'football',
-      location: 'New York',
-      rating: 4.5
-    },
-    {
-      id: 3,
-      type: 'tournament',
-      title: 'Summer League 2024',
-      sport: 'tennis',
-      date: 'June 15-30',
-      participants: 32
+  const handleSearch = async (query) => {
+    if (!query.trim()) {
+      setSearchResults([]);
+      return;
     }
-  ];
 
-  const getSportIcon = (sport) => {
-    const sportData = sports.find(s => s.id === sport);
-    return sportData ? sportData.icon : FaTrophy;
+    setLoading(true);
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Mock search results
+      const results = [
+        {
+          id: 1,
+          type: 'match',
+          title: 'Mumbai Indians vs Chennai Super Kings',
+          subtitle: 'IPL 2024 Match',
+          icon: FaTrophy,
+          color: 'text-blue-600'
+        },
+        {
+          id: 2,
+          type: 'player',
+          title: 'Virat Kohli',
+          subtitle: 'Cricket Player',
+          icon: FaUsers,
+          color: 'text-green-600'
+        },
+        {
+          id: 3,
+          type: 'venue',
+          title: 'Wankhede Stadium',
+          subtitle: 'Mumbai, Maharashtra',
+          icon: FaMapMarkerAlt,
+          color: 'text-purple-600'
+        }
+      ];
+      
+      setSearchResults(results);
+    } catch (error) {
+      handleError(error, 'Search');
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const getSportColor = (sport) => {
-    const sportData = sports.find(s => s.id === sport);
-    return sportData ? sportData.color : 'text-gray-600';
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      handleSearch(searchQuery);
+    }, 500);
+
+    return () => clearTimeout(timeoutId);
+  }, [searchQuery]);
+
+  const handleResultPress = (result) => {
+    // In a real app, this would navigate to the appropriate screen
+    console.log('Selected result:', result);
   };
 
-  const filteredResults = searchResults.filter(result => 
-    result.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    result.name?.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredResults = activeTab === 'all' 
+    ? searchResults 
+    : searchResults.filter(result => result.type === activeTab);
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-20">
+    <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-white px-4 md:px-6 py-4 border-b border-gray-200">
-        <div className="flex items-center space-x-3">
-          <Link to="/home" className="text-gray-600">
-            <FaArrowLeft className="text-xl" />
-          </Link>
-          <div className="flex-1 relative">
-            <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-            <input
-              type="text"
-              placeholder="Search matches, players, tournaments..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            />
-          </div>
-          <button className="text-gray-600 hover:text-blue-600">
-            <FaFilter className="text-xl" />
-          </button>
-        </div>
-      </div>
-
-      {/* Search Tabs */}
-      <div className="bg-white px-4 md:px-6 py-2 border-b border-gray-200">
-        <div className="flex space-x-6">
-          {[
-            { key: 'all', label: 'All' },
-            { key: 'matches', label: 'Matches' },
-            { key: 'players', label: 'Players' },
-            { key: 'tournaments', label: 'Tournaments' }
-          ].map(tab => (
+      <div className="bg-white shadow-sm border-b border-gray-200">
+        <div className="px-4 py-3">
+          <div className="flex items-center space-x-3">
             <button
-              key={tab.key}
-              onClick={() => setActiveTab(tab.key)}
-              className={`py-2 px-1 border-b-2 font-medium text-sm transition-colors ${
-                activeTab === tab.key
-                  ? 'border-blue-500 text-blue-600'
-                  : 'border-transparent text-gray-500 hover:text-gray-700'
-              }`}
+              onClick={() => navigate(-1)}
+              className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors"
             >
-              {tab.label}
+              <FaArrowLeft className="text-gray-600" />
             </button>
-          ))}
+            <div className="flex-1">
+              <div className="relative">
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search matches, players, venues..."
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
+                <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Search Tabs */}
+        <div className="px-4 pb-3">
+          <div className="flex space-x-1 bg-gray-100 rounded-lg p-1">
+            {[
+              { id: 'all', label: 'All' },
+              { id: 'match', label: 'Matches' },
+              { id: 'player', label: 'Players' },
+              { id: 'venue', label: 'Venues' }
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`flex-1 py-2 px-3 rounded-md text-sm font-medium transition-all duration-200 ${
+                  activeTab === tab.id
+                    ? 'bg-white text-blue-600 shadow-sm'
+                    : 'text-gray-600 hover:text-gray-800'
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
       {/* Search Results */}
-      <div className="px-4 md:px-6 py-4">
-        {searchQuery ? (
+      <div className="px-4 py-6">
+        {loading ? (
+          <div className="text-center py-8">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <p className="text-gray-600">Searching...</p>
+          </div>
+        ) : searchQuery.trim() ? (
           <div className="space-y-3">
             {filteredResults.map((result) => {
-              const SportIcon = getSportIcon(result.sport);
-              const sportColor = getSportColor(result.sport);
-
+              const Icon = result.icon;
               return (
-                <div key={result.id} className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
-                  {result.type === 'match' && (
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
-                        <div className={`w-10 h-10 rounded-full flex items-center justify-center ${sportColor.replace('text-', 'bg-').replace('-600', '-100')}`}>
-                          <SportIcon className={`text-lg ${sportColor}`} />
-                        </div>
-                        <div>
-                          <h3 className="font-semibold text-gray-900">{result.title}</h3>
-                          <div className="flex items-center space-x-4 text-sm text-gray-500">
-                            <span className="flex items-center">
-                              <FaMapMarkerAlt className="mr-1" />
-                              {result.venue}
-                            </span>
-                            <span className="flex items-center">
-                              <FaCalendar className="mr-1" />
-                              {result.time}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                        result.status === 'live' ? 'text-red-600 bg-red-100' : 'text-gray-600 bg-gray-100'
-                      }`}>
-                        {result.status.toUpperCase()}
-                      </span>
+                <div 
+                  key={result.id} 
+                  className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 cursor-pointer hover:shadow-md transition-shadow duration-200"
+                  onClick={() => handleResultPress(result)}
+                >
+                  <div className="flex items-center space-x-3">
+                    <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
+                      <Icon className={`text-lg ${result.color}`} />
                     </div>
-                  )}
-
-                  {result.type === 'player' && (
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
-                          <span className="text-white font-semibold text-sm">
-                            {result.name.charAt(0)}
-                          </span>
-                        </div>
-                        <div>
-                          <h3 className="font-semibold text-gray-900">{result.name}</h3>
-                          <div className="flex items-center space-x-4 text-sm text-gray-500">
-                            <span className="flex items-center">
-                              <SportIcon className={`mr-1 ${sportColor}`} />
-                              {result.sport}
-                            </span>
-                            <span className="flex items-center">
-                              <FaMapMarkerAlt className="mr-1" />
-                              {result.location}
-                            </span>
-                            <span className="flex items-center">
-                              <FaTrophy className="mr-1" />
-                              {result.rating}★
-                            </span>
-                          </div>
-                        </div>
-                      </div>
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-gray-900">{result.title}</h3>
+                      <p className="text-sm text-gray-500">{result.subtitle}</p>
                     </div>
-                  )}
-
-                  {result.type === 'tournament' && (
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
-                        <div className={`w-10 h-10 rounded-full flex items-center justify-center ${sportColor.replace('text-', 'bg-').replace('-600', '-100')}`}>
-                          <SportIcon className={`text-lg ${sportColor}`} />
-                        </div>
-                        <div>
-                          <h3 className="font-semibold text-gray-900">{result.title}</h3>
-                          <div className="flex items-center space-x-4 text-sm text-gray-500">
-                            <span className="flex items-center">
-                              <FaCalendar className="mr-1" />
-                              {result.date}
-                            </span>
-                            <span className="flex items-center">
-                              <FaUsers className="mr-1" />
-                              {result.participants} players
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  )}
+                  </div>
                 </div>
               );
             })}
+            
+            {filteredResults.length === 0 && (
+              <div className="text-center py-8">
+                <FaSearch className="text-4xl text-gray-300 mx-auto mb-4" />
+                <h3 className="text-lg font-medium text-gray-900 mb-2">No Results Found</h3>
+                <p className="text-gray-500">Try searching with different keywords</p>
+              </div>
+            )}
           </div>
         ) : (
-          <div className="text-center py-12">
-            <FaSearch className="text-4xl text-gray-400 mx-auto mb-4" />
-            <h3 className="text-lg font-medium text-gray-900 mb-2">Search for anything</h3>
-            <p className="text-gray-600">Find matches, players, tournaments, and more</p>
+          <div className="text-center py-8">
+            <FaSearch className="text-4xl text-gray-300 mx-auto mb-4" />
+            <h3 className="text-lg font-medium text-gray-900 mb-2">Search SportSphere</h3>
+            <p className="text-gray-500">Find matches, players, venues, and more</p>
           </div>
         )}
       </div>

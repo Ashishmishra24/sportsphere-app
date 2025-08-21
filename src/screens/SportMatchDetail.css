@@ -1,0 +1,532 @@
+/* Unified Sport Match Detail Styles */
+
+/* Header and Navigation */
+.match-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 1rem;
+  position: -webkit-sticky; /* Fix for Safari iOS */
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.match-header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.match-header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.back-button {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.back-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.match-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.match-subtitle {
+  font-size: 0.875rem;
+  opacity: 0.9;
+  margin: 0;
+}
+
+/* Score Cards */
+.score-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+
+.score-card-header {
+  padding: 1rem;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.score-card-content {
+  padding: 1.5rem;
+}
+
+.teams-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.team-info {
+  flex: 1;
+  text-align: center;
+}
+
+.team-logo {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 0.5rem;
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+
+.team-name {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #1a202c;
+}
+
+.team-score {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #2d3748;
+}
+
+.team-details {
+  font-size: 0.875rem;
+  color: #718096;
+  margin-top: 0.25rem;
+}
+
+.vs-divider {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #a0aec0;
+  margin: 0 1rem;
+}
+
+/* Match Status */
+.match-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  background: #f7fafc;
+  border-top: 1px solid #e2e8f0;
+}
+
+.status-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-live {
+  background: #fed7d7;
+  color: #c53030;
+}
+
+.status-finished {
+  background: #c6f6d5;
+  color: #2f855a;
+}
+
+.status-upcoming {
+  background: #bee3f8;
+  color: #2b6cb0;
+}
+
+/* Tabs */
+.tabs-container {
+  background: white;
+  border-bottom: 1px solid #e2e8f0;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+.tabs-list {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tab-item {
+  flex: 1;
+}
+
+.tab-button {
+  width: 100%;
+  padding: 1rem;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: #718096;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tab-button:hover {
+  color: #4a5568;
+  background: #f7fafc;
+}
+
+.tab-button.active {
+  color: #3182ce;
+  border-bottom-color: #3182ce;
+}
+
+/* Statistics Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.stat-card {
+  background: white;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.stat-title {
+  font-size: 0.875rem;
+  color: #718096;
+  margin-bottom: 0.5rem;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #2d3748;
+}
+
+.stat-change {
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.stat-change.positive {
+  color: #38a169;
+}
+
+.stat-change.negative {
+  color: #e53e3e;
+}
+
+/* Timeline */
+.timeline {
+  padding: 1rem;
+}
+
+.timeline-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.timeline-item:last-child {
+  border-bottom: none;
+}
+
+.timeline-time {
+  min-width: 60px;
+  text-align: center;
+  font-weight: 600;
+  color: #4a5568;
+}
+
+.timeline-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.timeline-content {
+  flex: 1;
+}
+
+.timeline-title {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: #2d3748;
+}
+
+.timeline-description {
+  font-size: 0.875rem;
+  color: #718096;
+}
+
+/* Player Lists */
+.player-list {
+  padding: 1rem;
+}
+
+.player-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  background: white;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.player-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #4a5568;
+}
+
+.player-info {
+  flex: 1;
+}
+
+.player-name {
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.player-role {
+  font-size: 0.875rem;
+  color: #718096;
+}
+
+.player-stats {
+  text-align: right;
+}
+
+.player-stat {
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.player-stat-label {
+  font-size: 0.75rem;
+  color: #718096;
+}
+
+/* Info Cards */
+.info-card {
+  background: white;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.info-card-title {
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: #2d3748;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  color: #4a5568;
+}
+
+.info-item:last-child {
+  margin-bottom: 0;
+}
+
+.info-icon {
+  color: #718096;
+  width: 16px;
+}
+
+/* Progress Bars */
+.progress-container {
+  margin-bottom: 1rem;
+}
+
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.25rem;
+  font-size: 0.875rem;
+  color: #4a5568;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .teams-container {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .vs-divider {
+    margin: 0;
+    transform: rotate(90deg);
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .tabs-list {
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  
+  .tab-item {
+    flex: none;
+    min-width: 120px;
+  }
+}
+
+@media (max-width: 480px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .timeline-item {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .timeline-time {
+    min-width: auto;
+    text-align: left;
+  }
+}
+
+/* Loading Skeletons */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.skeleton-text {
+  height: 1rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.skeleton-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+/* Sport-specific colors */
+.sport-cricket {
+  --primary-color: #059669;
+  --secondary-color: #10b981;
+  --accent-color: #34d399;
+}
+
+.sport-football {
+  --primary-color: #7c3aed;
+  --secondary-color: #8b5cf6;
+  --accent-color: #a78bfa;
+}
+
+.sport-tennis {
+  --primary-color: #ea580c;
+  --secondary-color: #f97316;
+  --accent-color: #fb923c;
+}
+
+.sport-basketball {
+  --primary-color: #dc2626;
+  --secondary-color: #ef4444;
+  --accent-color: #f87171;
+}
+
+.sport-badminton {
+  --primary-color: #2563eb;
+  --secondary-color: #3b82f6;
+  --accent-color: #60a5fa;
+}
+
+/* Apply sport-specific colors */
+.sport-cricket .team-logo {
+  background: var(--primary-color);
+  color: white;
+}
+
+.sport-football .team-logo {
+  background: var(--primary-color);
+  color: white;
+}
+
+.sport-tennis .team-logo {
+  background: var(--primary-color);
+  color: white;
+}
+
+.sport-basketball .team-logo {
+  background: var(--primary-color);
+  color: white;
+}
+
+.sport-badminton .team-logo {
+  background: var(--primary-color);
+  color: white;
+}

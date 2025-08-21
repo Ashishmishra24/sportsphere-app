@@ -20,23 +20,27 @@ import MatchOverview from './screens/MatchOverview';
 import ScoringAndStats from './screens/ScoringAndStats';
 import LiveMatch from './screens/LiveMatch';
 import LiveScores from './screens/LiveScores';
+import Matches from './screens/Matches';
+import QRCodeScanner from './screens/QRCodeScanner';
 import UserPreferences from './screens/UserPreferences';
 import Highlights from './screens/Highlights';
 import HistoricalMatches from './screens/HistoricalMatches';
 import PerformanceAnalytics from './screens/PerformanceAnalytics';
-import CommunityFeed from './screens/CommunityFeed';
 import ChatAndMessaging from './screens/ChatAndMessaging';
 import VenueDirectory from './screens/VenueDirectory';
 import VenueBooking from './screens/VenueBooking';
 import Settings from './screens/Settings';
 import SupportAndHelp from './screens/SupportAndHelp';
 import Search from './screens/Search';
+import TournamentPage from './screens/TournamentPage';
+import MatchDetail from './screens/MatchDetail';
 
 // Layout Components
 import Navigation from './components/Navigation';
 import ProtectedRoute from './components/ProtectedRoute';
 import ErrorBoundary from './components/ErrorBoundary';
 import LoadingSpinner from './components/LoadingSpinner';
+import Breadcrumbs from './components/Breadcrumbs';
 
 import './App.css';
 
@@ -118,19 +122,24 @@ function App() {
             <Route path="/create-match" element={<ProtectedRoute user={user}><MatchCreation /></ProtectedRoute>} />
             <Route path="/create-tournament" element={<ProtectedRoute user={user}><TournamentCreation /></ProtectedRoute>} />
             <Route path="/match/:id" element={<ProtectedRoute user={user}><MatchOverview /></ProtectedRoute>} />
+            <Route path="/match/:id/detail" element={<ProtectedRoute user={user}><MatchDetail /></ProtectedRoute>} />
+
             <Route path="/match/:id/scoring" element={<ProtectedRoute user={user}><ScoringAndStats /></ProtectedRoute>} />
             <Route path="/live-match/:id" element={<ProtectedRoute user={user}><LiveMatch /></ProtectedRoute>} />
             <Route path="/live-scores" element={<ProtectedRoute user={user}><LiveScores /></ProtectedRoute>} />
+            <Route path="/matches" element={<ProtectedRoute user={user}><Matches /></ProtectedRoute>} />
+            <Route path="/qr-scanner" element={<ProtectedRoute user={user}><QRCodeScanner /></ProtectedRoute>} />
             <Route path="/highlights" element={<ProtectedRoute user={user}><Highlights /></ProtectedRoute>} />
             <Route path="/historical-matches" element={<ProtectedRoute user={user}><HistoricalMatches /></ProtectedRoute>} />
             <Route path="/analytics" element={<ProtectedRoute user={user}><PerformanceAnalytics /></ProtectedRoute>} />
-            <Route path="/community" element={<ProtectedRoute user={user}><CommunityFeed /></ProtectedRoute>} />
+            <Route path="/profile/:userId" element={<ProtectedRoute user={user}><UserProfile /></ProtectedRoute>} />
             <Route path="/chat" element={<ProtectedRoute user={user}><ChatAndMessaging /></ProtectedRoute>} />
             <Route path="/venues" element={<ProtectedRoute user={user}><VenueDirectory /></ProtectedRoute>} />
             <Route path="/venue/:id/booking" element={<ProtectedRoute user={user}><VenueBooking /></ProtectedRoute>} />
             <Route path="/settings" element={<ProtectedRoute user={user}><Settings /></ProtectedRoute>} />
             <Route path="/support" element={<ProtectedRoute user={user}><SupportAndHelp /></ProtectedRoute>} />
             <Route path="/search" element={<ProtectedRoute user={user}><Search /></ProtectedRoute>} />
+            <Route path="/tournament/:tournamentId" element={<ProtectedRoute user={user}><TournamentPage /></ProtectedRoute>} />
 
             {/* Catch all route */}
             <Route path="*" element={<Navigate to={user ? "/home" : "/"} />} />
